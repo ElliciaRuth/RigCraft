@@ -1,0 +1,6 @@
+# Front controller for the RigCraft API. Requests arrive already rewritten
+# from /RigCraft/api/* by the project's root .htaccess, so no rules are needed
+# here. "RewriteEngine On" with no rules stops the parent rules re-applying.
+Require all granted
+Options -Indexes
+RewriteEngine On

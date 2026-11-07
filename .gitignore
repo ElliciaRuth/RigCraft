@@ -1,0 +1,26 @@
+# ---- Dependencies (restore with: composer install / npm install) ----
+backend/vendor/
+frontend/node_modules/
+
+# ---- Build output (recreate with: npm run build) ----
+frontend/dist/
+
+# ---- Local settings & secrets (copy backend/.env.example to backend/.env) ----
+backend/.env
+.env
+
+# ---- CodeIgniter runtime files (keep each folder's index.html) ----
+backend/writable/cache/*
+backend/writable/logs/*
+backend/writable/session/*
+backend/writable/uploads/*
+backend/writable/debugbar/*
+!backend/writable/*/index.html
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log

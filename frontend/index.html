@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="description" content="RigCraft — certified pre-owned PC parts, cleaned, re-pasted and stress-tested, with a public test report for every unit.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>RigCraft</title>
+  <script>
+    // Apply the remembered staff sidebar state before first paint (no flash of the wide sidebar).
+    try { if (localStorage.getItem('rc.sidebar') === 'collapsed') document.documentElement.classList.add('sb-collapsed'); } catch (e) {}
+  </script>
+</head>
+<body class="d-flex flex-column min-vh-100 public">
+  <div id="app" class="d-flex flex-column flex-grow-1"></div>
+  <noscript><p style="padding:2rem;color:#E2E8F0">RigCraft needs JavaScript to run.</p></noscript>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

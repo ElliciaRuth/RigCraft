@@ -1,0 +1,3 @@
+# The CodeIgniter app (app/, vendor/, writable/, .env …) is never served
+# directly. Only public/index.php is reachable, via /RigCraft/api/* (see the project's root .htaccess).
+Require all denied

@@ -1,0 +1,27 @@
+{
+  "name": "rigcraft-frontend",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "RigCraft storefront and staff console — Vue 3 single-page app (talks to the CodeIgniter API at /RigCraft/api).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.6.1",
+    "qrcode": "^1.5.4",
+    "vue": "^3.5.45",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "vite": "^8.3.6"
+  }
+}

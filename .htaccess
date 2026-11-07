@@ -1,0 +1,22 @@
+# =====================================================================
+# RigCraft — one site at /RigCraft/
+#   /RigCraft/api/*   → CodeIgniter 4 JSON API   (backend/public/index.php)
+#   everything else   → Vue single-page app      (frontend/dist)
+# The PHP built-in server (start-lan-server.bat) uses dev-router.php,
+# which applies the same rules.
+# =====================================================================
+Options -Indexes
+RewriteEngine On
+
+# ---- API ----
+RewriteRule ^api(/.*)?$ backend/public/index.php [L,QSA]
+
+# ---- Built files and public assets of the Vue app ----
+RewriteRule ^((assets|img)/.+|favicon\.svg)$ frontend/dist/$1 [L]
+
+# ---- Project docs, scripts and the SQL dump aren't web pages ----
+RewriteRule ^(database(/.*)?|dev-router\.php|.*\.(md|bat|sql|json|lock))$ - [F]
+
+# ---- Every other path is a page of the Vue app (history-mode routing) ----
+RewriteCond %{REQUEST_URI} !/(backend|frontend)/
+RewriteRule ^ frontend/dist/index.html [L]

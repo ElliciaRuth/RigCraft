@@ -1,0 +1,13 @@
+# The Vue project folder. Only the build output (dist/) is served.
+RewriteEngine On
+
+# Built app: serve as-is.
+RewriteRule ^dist/ - [L]
+
+# Old page addresses (printed QR labels, bookmarks), e.g. frontend/verify.php?hash=…
+# → the Vue app, whose router redirects them to the new pages.
+RewriteRule ^$ dist/index.html [L]
+RewriteRule ^[a-z_]+\.php$ dist/index.html [L]
+
+# Sources, node_modules, package files: not web pages.
+RewriteRule ^ - [F]
