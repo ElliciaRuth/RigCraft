@@ -23,11 +23,19 @@ const notice = computed(() => {
 
 async function submit() {
   error.value = '';
-  if (!email.value.trim() || !password.value) { error.value = 'Enter your email and password.'; return; }
+  const login = email.value.trim();
+  if (!login || !password.value) { error.value = 'Enter your email or username and password.'; return; }
   busy.value = true;
   try {
-    await authCall('auth/customer/login', { email: email.value.trim(), password: password.value });
-    router.replace(next.value);
+    if (login.includes('@')) {
+      // Shopper accounts sign in with their email.
+      await authCall('auth/customer/login', { email: login, password: password.value });
+      router.replace(next.value);
+    } else {
+      // No "@" → a staff username: sign in to the console instead.
+      await authCall('auth/staff/login', { username: login, password: password.value });
+      router.replace('/staff');
+    }
   } catch (e) {
     error.value = e.message;
     password.value = '';
@@ -48,10 +56,10 @@ async function submit() {
         <div v-if="error" class="alert alert-danger py-2 small" role="alert"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</div>
 
         <div class="mb-3">
-          <label class="form-label" for="email">Email</label>
+          <label class="form-label" for="email">Email or username</label>
           <div class="input-group">
-            <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-            <input class="form-control" id="email" type="email" v-model="email" autocomplete="email" autocapitalize="none" required autofocus>
+            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+            <input class="form-control" id="email" type="text" v-model="email" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
           </div>
         </div>
         <div class="mb-4">

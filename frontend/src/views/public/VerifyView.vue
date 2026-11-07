@@ -14,6 +14,7 @@ import { session } from '@/lib/session.js';
 import { cart } from '@/lib/cart.js';
 import { fmtDate, peso, pesoWhole, statusTone, categoryIcon, DEMO_HASH } from '@/lib/format.js';
 import { productPhoto } from '@/lib/photos.js';
+import ProductZoom from '@/components/ProductZoom.vue';
 import UnitSearch from '@/components/UnitSearch.vue';
 
 const STATUS_META = {
@@ -458,9 +459,7 @@ const signInToBuy = computed(() => ({ name: 'signin', query: { next: route.fullP
                 <RouterLink v-else-if="isGuest" :to="signInToBuy" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-right-to-bracket me-1"></i>Sign in to buy</RouterLink>
               </div>
             </div>
-            <div v-if="photo" class="unit-photo">
-              <img :src="photo" :alt="unit.brand + ' ' + unit.model_name" @error="photoBroken = true">
-            </div>
+            <ProductZoom v-if="photo" :src="photo" :alt="unit.brand + ' ' + unit.model_name" @error="photoBroken = true" />
           </div>
 
           <dl class="spec-grid cols-5">

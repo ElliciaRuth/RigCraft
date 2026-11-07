@@ -529,6 +529,34 @@ section[id] { scroll-margin-top: 72px; }
   .unit-photo { width: 100%; aspect-ratio: auto; height: 12rem; }
 }
 
+/* Large product photo with roll-over zoom (components/ProductZoom.vue).
+   Photo on the left; the zoom pane covers the name/price column beside it. */
+.unit-top { position: relative; --pz-w: clamp(14rem, 32vw, 23rem); }
+.unit-top.has-photo { align-items: flex-start; }
+.pz { order: -1; flex: 0 0 auto; width: var(--pz-w); }
+.pz-box { display: block; width: 100%; padding: 0; position: relative; cursor: zoom-in; }
+.pz-box img { padding: 1rem; }
+.pz-box:focus-visible { outline: 2px solid var(--rc-cyan); outline-offset: 2px; }
+.pz-box.zooming { cursor: crosshair; }
+.pz-lens { position: absolute; pointer-events: none; border: 1px solid rgba(6,182,212,.9);
+  background: rgba(6,182,212,.14); box-shadow: 0 0 0 9999px rgba(2,6,23,.25); }
+.pz-hint { font-size: .75rem; color: var(--rc-muted); text-align: center; margin-top: .5rem; }
+.pz-pane { position: absolute; z-index: 5; top: 0; right: 0; height: var(--pz-w);
+  left: calc(var(--pz-w) + 1.5rem); border-radius: 14px; border: 1px solid var(--rc-border);
+  background-color: #1a263b; background-repeat: no-repeat; pointer-events: none;
+  box-shadow: 0 24px 48px -20px rgba(2,6,23,.8); }
+.pz-lightbox { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; background: rgba(2,6,23,.88); cursor: zoom-out; }
+.pz-lightbox img { max-width: min(92vw, 900px); max-height: 88vh; width: auto; height: auto; min-width: min(80vw, 600px);
+  object-fit: contain; cursor: default; filter: drop-shadow(0 20px 30px rgba(0,0,0,.6)); }
+.pz-close { position: absolute; top: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  border: 1px solid var(--rc-border); background: #172238; color: #fff; font-size: 1.1rem; }
+@media (max-width: 575.98px) {
+  .pz { order: 0; width: 100%; }
+  .pz-box { height: 16rem; }
+  .pz-pane { display: none; }
+}
+
 .spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.25rem; margin: 0; }
 @media (min-width: 768px) { .spec-grid.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } .spec-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .spec-grid dt { font-size: .72rem; font-weight: 500; color: var(--rc-muted); text-transform: uppercase; letter-spacing: .06em; }
