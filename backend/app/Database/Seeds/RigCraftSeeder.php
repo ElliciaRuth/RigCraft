@@ -81,5 +81,8 @@ class RigCraftSeeder extends Seeder
 
         $this->db->transComplete();
         CLI::write('RigCraft sample data added: 3 staff, 1 shopper, 12 units, 11 stress runs.', 'green');
+
+        // The extended catalogue (30 more certified units).
+        $this->call(CatalogSeeder::class);
     }
 }

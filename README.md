@@ -38,6 +38,8 @@ You need [XAMPP](https://www.apachefriends.org/) (PHP 8.2+ with the `intl` exten
    - phpMyAdmin → **Import** → `database/rigcraft_db.sql`, or
    - `C:\xampp\mysql\bin\mysql.exe -u root < database\rigcraft_db.sql`, or
    - with CodeIgniter: create an empty `rigcraft_db`, then from `backend/` run `php spark migrate` and `php spark db:seed RigCraftSeeder`.
+
+   The sample data has 42 units: 12 core demo units plus a 30-unit catalogue of CPUs, GPUs, RAM, motherboards and SSDs. To add just the catalogue to an existing database, run `php spark db:seed CatalogSeeder` in `backend/`. It skips units already on file.
 5. Open <http://127.0.0.1/RigCraft/>.
    (On this PC, `localhost` gets redirected to the BSU Inventory HTTPS site, so use `127.0.0.1`.)
 
@@ -143,7 +145,7 @@ RigCraft/
 │     ├─ Models/          User, Customer, Component, DiagnosticLog, Order, OrderItem
 │     ├─ Validation/      RigCraftRules (ph_phone, not_future, rc_hash)
 │     ├─ Exceptions/      ApiError
-│     └─ Database/        Migrations/ (schema), Seeds/RigCraftSeeder
+│     └─ Database/        Migrations/ (schema), Seeds/ (RigCraftSeeder, CatalogSeeder + CatalogData)
 └─ frontend/              ── Vue 3 + Vite
    ├─ src/
    │  ├─ main.js, App.vue, router/index.js

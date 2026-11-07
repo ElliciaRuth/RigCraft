@@ -258,3 +258,113 @@ VALUES
   (8,  3, 'Aisha Patel',  30, 69.0,  70, 0, TRUE,  'Arctic MX-4',              FALSE, 'Prime95',       'PASSED', NOW() - INTERVAL 27 DAY),
   (9,  2, 'Marcus Reyes', 30, 71.6,  80, 0, TRUE,  'Honeywell PTM7950',        TRUE,  'FurMark 2',     'PASSED', NOW() - INTERVAL 20 DAY),
   (10, 3, 'Aisha Patel',  60, 47.5,   0, 0, FALSE, NULL,                       FALSE, 'MemTest86',     'PASSED', NOW() - INTERVAL 14 DAY);
+
+-- ---------------------------------------------------------------------
+--  Extended catalogue: 30 more certified units (CPUs, GPUs, RAM,
+--  motherboards, SSDs). Generated from backend/app/Database/Seeds/
+--  CatalogData.php — on an existing database run instead:
+--     php spark db:seed CatalogSeeder
+-- ---------------------------------------------------------------------
+INSERT INTO components
+  (serial_hash, serial_number, model_name, brand, category, intake_date,
+   buyout_cost, listing_price, retail_price, status, warranty_months, notes, created_by)
+VALUES
+  ('RC-SU650-4417', '2M1820058713', 'ADATA Ultimate SU650 512GB', 'ADATA', 'Storage', CURDATE() - INTERVAL 34 DAY, 800.00, 1250.00, 1995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-3400G-6052', '9JA2731S90269', 'AMD Ryzen 5 3400G', 'AMD', 'CPU', CURDATE() - INTERVAL 31 DAY, 2800.00, 3995.00, 6995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-5500-3381', '9MB4207R40115', 'AMD Ryzen 5 5500', 'AMD', 'CPU', CURDATE() - INTERVAL 29 DAY, 2400.00, 3495.00, 5295.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-7500F-7714', '9PC3318T70482', 'AMD Ryzen 5 7500F', 'AMD', 'CPU', CURDATE() - INTERVAL 12 DAY, 5200.00, 6995.00, 8995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-5700X-2268', '9HB2915P60631', 'AMD Ryzen 7 5700X', 'AMD', 'CPU', CURDATE() - INTERVAL 18 DAY, 5000.00, 6995.00, 9995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-7600-5830', 'AR7600CLW2311047', 'ASRock Radeon RX 7600 Challenger White 8GB', 'ASRock', 'GPU', CURDATE() - INTERVAL 16 DAY, 8800.00, 11995.00, 16995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-7600XT-9147', 'AR7600XTC2402218', 'ASRock Radeon RX 7600 XT Challenger 16GB OC', 'ASRock', 'GPU', CURDATE() - INTERVAL 9 DAY, 12000.00, 15995.00, 21995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-B450M-1609', 'BB1M90100377', 'ASRock B450M Steel Legend', 'ASRock', 'Motherboard', CURDATE() - INTERVAL 40 DAY, 2300.00, 3495.00, 5995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-B550M-4482', 'BH2N10301925', 'ASRock B550M Pro RS', 'ASRock', 'Motherboard', CURDATE() - INTERVAL 22 DAY, 3500.00, 4995.00, 7495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-7600-3075', 'R9YVCM019284', 'ASUS Dual Radeon RX 7600 V2 OC 8GB', 'ASUS', 'GPU', CURDATE() - INTERVAL 14 DAY, 8500.00, 11495.00, 16495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-3060TI-8821', 'CF3060TIA21330592', 'Colorful iGame GeForce RTX 3060 Ti Advanced OC', 'Colorful', 'GPU', CURDATE() - INTERVAL 37 DAY, 11000.00, 14995.00, 24995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-4070SUPER-1953', 'CF4070SUW24080317', 'Colorful iGame GeForce RTX 4070 SUPER Ultra W OC', 'Colorful', 'GPU', CURDATE() - INTERVAL 7 DAY, 26000.00, 33995.00, 42995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-32GB-6640', 'F5-6000J3238F16GX2', 'G.Skill Flare X5 32GB DDR5-6000', 'G.Skill', 'RAM', CURDATE() - INTERVAL 11 DAY, 3500.00, 4995.00, 6995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-16GB-2905', 'F4-3200C16D-16GVKB', 'G.Skill Ripjaws V 16GB DDR4-3200', 'G.Skill', 'RAM', CURDATE() - INTERVAL 26 DAY, 1200.00, 1795.00, 2795.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-A520M-7381', 'SN21384013066', 'Gigabyte A520M DS3H AC', 'Gigabyte', 'Motherboard', CURDATE() - INTERVAL 30 DAY, 2000.00, 2995.00, 4695.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-B550M-5126', 'SN23157020481', 'Gigabyte B550M K', 'Gigabyte', 'Motherboard', CURDATE() - INTERVAL 19 DAY, 2800.00, 3995.00, 5995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-1650-8034', 'SN20234059917', 'Gigabyte GeForce GTX 1650 Mini ITX OC 4G', 'Gigabyte', 'GPU', CURDATE() - INTERVAL 44 DAY, 3500.00, 4995.00, 9495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-4060-4708', 'SN24026011583', 'Gigabyte GeForce RTX 4060 Windforce OC 8G', 'Gigabyte', 'GPU', CURDATE() - INTERVAL 8 DAY, 10500.00, 13995.00, 18495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-14400F-3359', 'X335J503', 'Intel Core i5-14400F', 'Intel', 'CPU', CURDATE() - INTERVAL 6 DAY, 6500.00, 8495.00, 11495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-16GB-9512', 'KF432C16BBK2-16', 'Kingston Fury Beast 16GB DDR4-3200', 'Kingston', 'RAM', CURDATE() - INTERVAL 24 DAY, 1250.00, 1895.00, 2895.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-NM620-6273', 'NLD512G220510244', 'Lexar NM620 512GB NVMe M.2', 'Lexar', 'Storage', CURDATE() - INTERVAL 20 DAY, 1000.00, 1595.00, 2495.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-B450M-2491', '602-7C52-030B2304', 'MSI B450M-A PRO MAX II', 'MSI', 'Motherboard', CURDATE() - INTERVAL 27 DAY, 1900.00, 2795.00, 4295.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-3050-7166', 'BJ240300418', 'Palit GeForce RTX 3050 StormX 6GB', 'Palit', 'GPU', CURDATE() - INTERVAL 15 DAY, 5500.00, 7495.00, 10995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-500GB-3847', 'S6PWNJ0T402871', 'Samsung 870 EVO 500GB', 'Samsung', 'Storage', CURDATE() - INTERVAL 33 DAY, 1700.00, 2495.00, 3995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-990-5590', 'S73VNJ0W118342', 'Samsung 990 PRO 1TB NVMe M.2', 'Samsung', 'Storage', CURDATE() - INTERVAL 10 DAY, 4600.00, 6295.00, 8995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-7800XT-2736', 'SP7800XTP23120086', 'Sapphire Pure Radeon RX 7800 XT 16GB', 'Sapphire', 'GPU', CURDATE() - INTERVAL 13 DAY, 21000.00, 26995.00, 33995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-512GB-8259', 'TM11-1902190350001', 'TeamGroup MP33 512GB NVMe M.2', 'TeamGroup', 'Storage', CURDATE() - INTERVAL 36 DAY, 900.00, 1395.00, 2195.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-16GB-1328', 'TF3D416G3200HC16F', 'TeamGroup T-Force Delta RGB 16GB DDR4-3200', 'TeamGroup', 'RAM', CURDATE() - INTERVAL 17 DAY, 1450.00, 2095.00, 3195.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus')),
+  ('RC-16GB-6981', 'TLZGD416G3200HC16F', 'TeamGroup T-Force Vulcan Z 16GB DDR4-3200', 'TeamGroup', 'RAM', CURDATE() - INTERVAL 23 DAY, 1150.00, 1695.00, 2595.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'aisha')),
+  ('RC-7800XT-4013', 'XFX7800XTQ319A0942', 'XFX Speedster QICK 319 Radeon RX 7800 XT 16GB', 'XFX', 'GPU', CURDATE() - INTERVAL 5 DAY, 19500.00, 25495.00, 31995.00, 'Certified', 6, NULL, (SELECT id FROM users WHERE username = 'marcus'));
+
+INSERT INTO diagnostic_logs
+  (component_id, technician_id, tested_by, test_duration_mins, peak_temp_celsius, fan_speed_pct,
+   memory_error_count, thermal_paste_replaced, paste_brand, ultrasonic_cleaned,
+   benchmark_tool, stress_status, test_date)
+SELECT c.id, u.id, u.full_name, t.mins, t.peak, t.fan, 0, t.paste_rep, t.paste, t.ultra, t.tool, 'PASSED', NOW() - INTERVAL t.days DAY
+FROM (
+  SELECT 'RC-SU650-4417' AS hash, 'aisha' AS tech, 30 AS mins, 46.2 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'OCCT' AS tool, 33 AS days
+  UNION ALL
+  SELECT 'RC-3400G-6052' AS hash, 'marcus' AS tech, 30 AS mins, 64.6 AS peak, 66 AS fan, TRUE AS paste_rep, 'Arctic MX-4' AS paste, FALSE AS ultra, 'Prime95' AS tool, 30 AS days
+  UNION ALL
+  SELECT 'RC-5500-3381' AS hash, 'aisha' AS tech, 30 AS mins, 63.1 AS peak, 73 AS fan, TRUE AS paste_rep, 'Arctic MX-6' AS paste, FALSE AS ultra, 'Cinebench R23' AS tool, 27 AS days
+  UNION ALL
+  SELECT 'RC-7500F-7714' AS hash, 'marcus' AS tech, 30 AS mins, 65.8 AS peak, 53 AS fan, TRUE AS paste_rep, 'Thermal Grizzly Kryonaut' AS paste, FALSE AS ultra, 'Cinebench R23' AS tool, 10 AS days
+  UNION ALL
+  SELECT 'RC-5700X-2268' AS hash, 'aisha' AS tech, 30 AS mins, 63.5 AS peak, 71 AS fan, TRUE AS paste_rep, 'Arctic MX-6' AS paste, FALSE AS ultra, 'Prime95' AS tool, 17 AS days
+  UNION ALL
+  SELECT 'RC-7600-5830' AS hash, 'marcus' AS tech, 30 AS mins, 67.5 AS peak, 76 AS fan, TRUE AS paste_rep, 'Arctic MX-4' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 15 AS days
+  UNION ALL
+  SELECT 'RC-7600XT-9147' AS hash, 'marcus' AS tech, 30 AS mins, 64.2 AS peak, 65 AS fan, TRUE AS paste_rep, 'Honeywell PTM7950' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 8 AS days
+  UNION ALL
+  SELECT 'RC-B450M-1609' AS hash, 'aisha' AS tech, 30 AS mins, 55.3 AS peak, 40 AS fan, FALSE AS paste_rep, NULL AS paste, TRUE AS ultra, 'OCCT' AS tool, 38 AS days
+  UNION ALL
+  SELECT 'RC-B550M-4482' AS hash, 'marcus' AS tech, 30 AS mins, 56.0 AS peak, 47 AS fan, FALSE AS paste_rep, NULL AS paste, TRUE AS ultra, 'OCCT' AS tool, 20 AS days
+  UNION ALL
+  SELECT 'RC-7600-3075' AS hash, 'aisha' AS tech, 30 AS mins, 66.9 AS peak, 69 AS fan, TRUE AS paste_rep, 'Arctic MX-4' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 13 AS days
+  UNION ALL
+  SELECT 'RC-3060TI-8821' AS hash, 'marcus' AS tech, 30 AS mins, 64.5 AS peak, 69 AS fan, TRUE AS paste_rep, 'Arctic MX-4' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 36 AS days
+  UNION ALL
+  SELECT 'RC-4070SUPER-1953' AS hash, 'aisha' AS tech, 30 AS mins, 66.4 AS peak, 81 AS fan, TRUE AS paste_rep, 'Thermal Grizzly Kryonaut' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 6 AS days
+  UNION ALL
+  SELECT 'RC-32GB-6640' AS hash, 'aisha' AS tech, 60 AS mins, 46.3 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'MemTest86' AS tool, 10 AS days
+  UNION ALL
+  SELECT 'RC-16GB-2905' AS hash, 'marcus' AS tech, 60 AS mins, 46.8 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'MemTest86' AS tool, 25 AS days
+  UNION ALL
+  SELECT 'RC-A520M-7381' AS hash, 'marcus' AS tech, 30 AS mins, 58.5 AS peak, 43 AS fan, FALSE AS paste_rep, NULL AS paste, TRUE AS ultra, 'OCCT' AS tool, 28 AS days
+  UNION ALL
+  SELECT 'RC-B550M-5126' AS hash, 'aisha' AS tech, 30 AS mins, 60.6 AS peak, 55 AS fan, FALSE AS paste_rep, NULL AS paste, TRUE AS ultra, 'OCCT' AS tool, 18 AS days
+  UNION ALL
+  SELECT 'RC-1650-8034' AS hash, 'aisha' AS tech, 30 AS mins, 65.9 AS peak, 74 AS fan, TRUE AS paste_rep, 'Noctua NT-H2' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 43 AS days
+  UNION ALL
+  SELECT 'RC-4060-4708' AS hash, 'marcus' AS tech, 30 AS mins, 63.1 AS peak, 70 AS fan, TRUE AS paste_rep, 'Arctic MX-6' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 6 AS days
+  UNION ALL
+  SELECT 'RC-14400F-3359' AS hash, 'aisha' AS tech, 30 AS mins, 63.0 AS peak, 60 AS fan, TRUE AS paste_rep, 'Arctic MX-4' AS paste, FALSE AS ultra, 'Prime95' AS tool, 5 AS days
+  UNION ALL
+  SELECT 'RC-16GB-9512' AS hash, 'aisha' AS tech, 60 AS mins, 47.5 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'MemTest86' AS tool, 23 AS days
+  UNION ALL
+  SELECT 'RC-NM620-6273' AS hash, 'marcus' AS tech, 30 AS mins, 55.7 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'OCCT' AS tool, 19 AS days
+  UNION ALL
+  SELECT 'RC-B450M-2491' AS hash, 'marcus' AS tech, 30 AS mins, 55.4 AS peak, 52 AS fan, FALSE AS paste_rep, NULL AS paste, TRUE AS ultra, 'OCCT' AS tool, 26 AS days
+  UNION ALL
+  SELECT 'RC-3050-7166' AS hash, 'aisha' AS tech, 30 AS mins, 65.2 AS peak, 64 AS fan, TRUE AS paste_rep, 'Arctic MX-6' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 14 AS days
+  UNION ALL
+  SELECT 'RC-500GB-3847' AS hash, 'marcus' AS tech, 30 AS mins, 44.3 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'OCCT' AS tool, 32 AS days
+  UNION ALL
+  SELECT 'RC-990-5590' AS hash, 'aisha' AS tech, 30 AS mins, 55.9 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'OCCT' AS tool, 9 AS days
+  UNION ALL
+  SELECT 'RC-7800XT-2736' AS hash, 'marcus' AS tech, 30 AS mins, 63.3 AS peak, 60 AS fan, TRUE AS paste_rep, 'Thermal Grizzly Kryonaut' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 12 AS days
+  UNION ALL
+  SELECT 'RC-512GB-8259' AS hash, 'aisha' AS tech, 30 AS mins, 60.3 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'OCCT' AS tool, 34 AS days
+  UNION ALL
+  SELECT 'RC-16GB-1328' AS hash, 'marcus' AS tech, 60 AS mins, 47.3 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'MemTest86' AS tool, 15 AS days
+  UNION ALL
+  SELECT 'RC-16GB-6981' AS hash, 'aisha' AS tech, 60 AS mins, 45.5 AS peak, 0 AS fan, FALSE AS paste_rep, NULL AS paste, FALSE AS ultra, 'MemTest86' AS tool, 21 AS days
+  UNION ALL
+  SELECT 'RC-7800XT-4013' AS hash, 'marcus' AS tech, 30 AS mins, 67.7 AS peak, 76 AS fan, TRUE AS paste_rep, 'Noctua NT-H2' AS paste, TRUE AS ultra, 'FurMark 2' AS tool, 4 AS days
+) t
+JOIN components c ON c.serial_hash = t.hash
+JOIN users u ON u.username = t.tech;
