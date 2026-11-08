@@ -34,7 +34,28 @@ function toggleCollapse() {
   collapsed.value = !collapsed.value;
   root.classList.toggle('sb-collapsed', collapsed.value);
   storage.set('rc.sidebar', collapsed.value ? 'collapsed' : 'expanded');
+  setPeek(false);
 }
+
+// Collapsed rail "peeks" open (overlaying the page) while hovered, while it
+// holds keyboard focus, or while the account menu is open. Desktop only.
+let hovering = false, kbdFocus = false, menuOpen = false, peekTimer = 0;
+function setPeek(on) {
+  clearTimeout(peekTimer);
+  root.classList.toggle('sb-peek', on && collapsed.value && mq.matches);
+}
+function syncPeek(delay) {
+  const want = hovering || kbdFocus || menuOpen;
+  clearTimeout(peekTimer);
+  if (want === root.classList.contains('sb-peek')) return;
+  peekTimer = setTimeout(() => setPeek(want), delay);
+}
+const onEnter    = () => { hovering = true;  syncPeek(120); };
+const onLeave    = () => { hovering = false; syncPeek(220); };
+const onFocusIn  = (e) => { if (e.target.matches(':focus-visible')) { kbdFocus = true; syncPeek(0); } };
+const onFocusOut = (e) => { if (!sidebar.value?.contains(e.relatedTarget)) { kbdFocus = false; syncPeek(220); } };
+const onMenuShow = () => { menuOpen = true;  syncPeek(0); };
+const onMenuHide = () => { menuOpen = false; syncPeek(220); };
 function setDrawer(open) {
   drawer.value = open;
   root.classList.toggle('sb-open', open);
@@ -42,20 +63,24 @@ function setDrawer(open) {
 }
 const onKey = (e) => { if (e.key === 'Escape' && drawer.value) setDrawer(false); };
 const mq = window.matchMedia('(min-width: 992px)');
-const onMq = (e) => { if (e.matches) setDrawer(false); };
+const onMq = (e) => { if (e.matches) setDrawer(false); else setPeek(false); };
 
 watch(() => route.fullPath, () => setDrawer(false));
 
 onMounted(() => {
   document.addEventListener('keydown', onKey);
   mq.addEventListener('change', onMq);
+  // Bootstrap's dropdown events have dots in their names, so bind them here.
+  sidebar.value.addEventListener('show.bs.dropdown', onMenuShow);
+  sidebar.value.addEventListener('hidden.bs.dropdown', onMenuHide);
   // Enable width transitions only after the initial state has painted.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('sb-ready')));
 });
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', onKey);
   mq.removeEventListener('change', onMq);
-  root.classList.remove('sb-open', 'sb-ready');
+  clearTimeout(peekTimer);
+  root.classList.remove('sb-open', 'sb-ready', 'sb-peek');
 });
 
 async function signOut() {
@@ -74,7 +99,8 @@ async function signOut() {
     <RouterLink class="avatar-sm text-decoration-none" :to="{ name: 'account' }" title="My account">{{ initials(me.full_name) }}</RouterLink>
   </header>
 
-  <aside ref="sidebar" class="sidebar" id="staffSidebar" aria-label="Console navigation">
+  <aside ref="sidebar" class="sidebar" id="staffSidebar" aria-label="Console navigation"
+         @mouseenter="onEnter" @mouseleave="onLeave" @focusin="onFocusIn" @focusout="onFocusOut">
     <div class="sb-brand">
       <RouterLink class="rc-logo" :to="{ name: 'dashboard' }" title="RigCraft Console">
         <i class="fa-solid fa-microchip"></i><span class="sb-text">Rig<span>Craft</span></span>
@@ -123,7 +149,7 @@ async function signOut() {
       </div>
       <button type="button" class="sb-collapse d-none d-lg-flex" aria-controls="staffSidebar" :aria-expanded="String(!collapsed)"
               :data-label="collapsed ? 'Expand sidebar' : 'Collapse sidebar'" :aria-label="collapsed ? 'Expand sidebar' : 'Collapse sidebar'" @click="toggleCollapse">
-        <i class="fa-solid fa-angles-left fa-fw"></i><span class="sb-text">Collapse</span>
+        <i class="fa-solid fa-angles-left fa-fw"></i><span class="sb-text">{{ collapsed ? 'Keep open' : 'Collapse' }}</span>
       </button>
     </div>
   </aside>

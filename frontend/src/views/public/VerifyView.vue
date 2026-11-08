@@ -447,17 +447,18 @@ const signInToBuy = computed(() => ({ name: 'signin', query: { next: route.fullP
               <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
                 <span class="status-pill" :class="status.tone"><i class="fa-solid" :class="status.icon"></i>{{ status.label }}</span>
                 <span class="small text-muted-rc">{{ unit.brand }} · {{ unit.category }}</span>
+                <!-- Buy action: top-right corner of the card -->
+                <div v-if="listedPrice && (canShop || isGuest)" class="unit-buy">
+                  <template v-if="canShop">
+                    <RouterLink v-if="inCart" :to="{ name: 'cart' }" class="btn btn-in-cart"><i class="fa-solid fa-check me-1"></i>In your cart · View cart</RouterLink>
+                    <button v-else type="button" class="btn btn-rc" @click="addToCart"><i class="fa-solid fa-cart-plus me-1"></i>Add to cart</button>
+                    <span v-if="cartFull" class="small text-warning">Your cart is full. Check out first, then keep shopping.</span>
+                  </template>
+                  <RouterLink v-else :to="signInToBuy" class="btn btn-outline-info"><i class="fa-solid fa-right-to-bracket me-1"></i>Sign in to buy</RouterLink>
+                </div>
               </div>
               <h1 class="unit-name" :class="listedPrice ? 'mb-1' : 'mb-0'">{{ unit.model_name }}</h1>
-              <div v-if="listedPrice" class="d-flex flex-wrap align-items-center gap-3">
-                <span class="text-muted-rc">Listed at <strong class="text-white">{{ listedPrice }}</strong></span>
-                <template v-if="canShop">
-                  <RouterLink v-if="inCart" :to="{ name: 'cart' }" class="btn btn-sm btn-in-cart"><i class="fa-solid fa-check me-1"></i>In your cart · View cart</RouterLink>
-                  <button v-else type="button" class="btn btn-sm btn-rc" @click="addToCart"><i class="fa-solid fa-cart-plus me-1"></i>Add to cart</button>
-                  <span v-if="cartFull" class="small text-warning">Your cart is full. Check out first, then keep shopping.</span>
-                </template>
-                <RouterLink v-else-if="isGuest" :to="signInToBuy" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-right-to-bracket me-1"></i>Sign in to buy</RouterLink>
-              </div>
+              <div v-if="listedPrice" class="text-muted-rc">Listed at <strong class="text-white">{{ listedPrice }}</strong></div>
             </div>
             <ProductZoom v-if="photo" :src="photo" :alt="unit.brand + ' ' + unit.model_name" @error="photoBroken = true" />
           </div>

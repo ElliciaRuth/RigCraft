@@ -36,7 +36,8 @@ function glow(e) {
     </div>
     <div class="deal-body">
       <div class="deal-meta">{{ item.brand }} · {{ item.category }}</div>
-      <h3 class="deal-name">{{ item.model_name }}</h3>
+      <!-- stretched-link: the whole card opens the test report; the buttons sit above it -->
+      <h3 class="deal-name"><RouterLink class="deal-link stretched-link" :to="report">{{ item.model_name }}</RouterLink></h3>
       <div class="deal-facts">
         <span class="fact ok"><i class="fa-solid fa-temperature-half me-1"></i>{{ item.peak_temp_celsius.toFixed(1) }} °C peak</span>
         <span class="fact"><i class="fa-solid fa-shield-halved me-1"></i>{{ item.warranty_months }}-mo warranty</span>
@@ -50,9 +51,9 @@ function glow(e) {
           <div v-if="item.savings" class="deal-save">Save {{ pesoWhole(item.savings) }}</div>
         </div>
         <div v-if="canShop" class="deal-actions">
+          <RouterLink class="btn btn-deal" :to="report" :title="'Test report for ' + item.model_name">Report <i class="fa-solid fa-arrow-right ms-1"></i></RouterLink>
           <RouterLink v-if="inCart" class="btn btn-in-cart" :to="{ name: 'cart' }"><i class="fa-solid fa-check me-1"></i>In cart</RouterLink>
           <button v-else type="button" class="btn btn-rc" @click="$emit('add', item)"><i class="fa-solid fa-cart-plus me-1"></i>Add to cart</button>
-          <RouterLink class="btn btn-deal" :to="report" :title="'Test report for ' + item.model_name">Report <i class="fa-solid fa-arrow-right ms-1"></i></RouterLink>
         </div>
         <RouterLink v-else class="btn btn-deal w-100" :to="report">View test report <i class="fa-solid fa-arrow-right ms-1"></i></RouterLink>
       </div>
