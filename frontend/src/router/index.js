@@ -41,6 +41,11 @@ const routes = [
   // ---- Old .php addresses (bookmarks, printed QR labels) ----
   { path: '/frontend/:page(.*)', redirect: legacyRedirect },
   { path: '/index.php', redirect: '/' },
+  // The XAMPP copy lived under /RigCraft/, so its QR labels and bookmarks read
+  // …/RigCraft/verify?hash=X or …/RigCraft/frontend/verify.php?hash=X. Where the app
+  // is served from the site root, drop the prefix (old .php pages then go through
+  // the redirect above).
+  { path: '/RigCraft/:rest(.*)*', redirect: (to) => ({ path: '/' + [].concat(to.params.rest || []).join('/'), query: to.query, hash: to.hash }) },
 
   pub('not-found', '/:pathMatch(.*)*', () => import('@/views/public/NotFoundView.vue'), { title: 'Page not found' }),
 ];

@@ -391,8 +391,9 @@ section[id] { scroll-margin-top: 72px; }
 /* ---------- Brand marquee ---------- */
 .marquee { overflow: hidden; padding: .9rem 0; border-block: 1px solid var(--rc-border); background: rgba(15,23,42,.65);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track { display: flex; width: max-content; animation: marquee var(--marquee-dur, 38s) linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+a.marquee-item { text-decoration: none; }
 .marquee-group { display: flex; }
 .marquee-item { display: flex; align-items: center; font-size: .85rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #3d4e6b; padding: 0 1.6rem; transition: color .2s; }
 .marquee-item::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #2a3a55; margin-left: 3.2rem; }
@@ -501,6 +502,20 @@ section[id] { scroll-margin-top: 72px; }
   box-shadow: 0 40px 90px -30px color-mix(in srgb, var(--glow) 60%, transparent); }
 .rig-figure img { flex: none; display: block; width: auto; height: auto; max-height: calc(100vh - 3rem); max-width: min(60vw, 960px); object-fit: contain; background: #050a16; }
 .rig-figure figcaption { flex: 0 0 19rem; padding: 1.6rem 1.5rem; overflow-y: auto; }
+/* Zoom: the frame keeps the photo's fitted size; the photo scales and pans inside it. */
+.rig-stage-wrap { position: relative; flex: none; display: flex; background: #050a16; }
+.rig-stage { position: relative; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; cursor: zoom-in; }
+.rig-stage.zoomed { cursor: grab; }
+.rig-stage.zoomed.dragging { cursor: grabbing; }
+.rig-stage img { transform-origin: center; transition: transform .18s ease-out; will-change: transform; -webkit-user-drag: none; }
+.rig-stage.dragging img { transition: none; }
+.rig-zoombar { position: absolute; left: 50%; bottom: .9rem; transform: translateX(-50%); display: flex; align-items: center; gap: .15rem; padding: .25rem;
+  border-radius: 999px; background: rgba(2,6,23,.78); border: 1px solid var(--rc-border); }
+.rig-zoombar button { width: 2.1rem; height: 2.1rem; border-radius: 50%; border: 0; background: transparent; color: #fff; display: grid; place-items: center; }
+.rig-zoombar button:hover:not(:disabled), .rig-zoombar button:focus-visible { color: var(--rc-cyan); background: rgba(6,182,212,.12); }
+.rig-zoombar button:disabled { opacity: .35; }
+.rig-zoombar output { min-width: 3.1rem; text-align: center; font-family: var(--rc-mono); font-size: .75rem; color: var(--rc-muted); }
+.rig-zoom-hint { font-size: .78rem !important; margin: 1.1rem 0 0; }
 .rig-figure p { color: var(--rc-muted); font-size: .9rem; }
 .rig-figure .rig-name { font-size: 1.35rem; }
 .rig-figure .rig-parts li { font-size: .86rem; }
@@ -513,7 +528,8 @@ section[id] { scroll-margin-top: 72px; }
 @media (max-width: 767.98px) {
   .rig-viewer { align-items: flex-start; padding: 4.25rem .75rem 1rem; }
   .rig-figure { flex-direction: column; width: 100%; max-height: calc(100vh - 5.25rem); overflow-y: auto; }
-  .rig-figure img { align-self: center; max-width: 100%; max-height: 58vh; }
+  .rig-stage-wrap { justify-content: center; }
+  .rig-figure img { max-width: calc(100vw - 1.5rem - 2px); max-height: 58vh; }
   .rig-figure figcaption { flex: none; padding: 1rem 1.1rem 1.25rem; overflow: visible; }
   .rig-nav { top: 1rem; transform: none; }
   .rig-nav.prev { left: .75rem; }
@@ -568,6 +584,8 @@ section[id] { scroll-margin-top: 72px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .home *, .home *::before, .home *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
+  /* The brand ticker keeps moving, at half speed (it pauses on hover or keyboard focus). */
+  .home .marquee-track { animation-duration: calc(var(--marquee-dur, 38s) * 2) !important; animation-iteration-count: infinite !important; }
   .js-anim .reveal { opacity: 1; transform: none; }
   .steps-line::after { transform: scaleX(1); }
 }

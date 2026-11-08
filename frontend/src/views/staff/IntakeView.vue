@@ -69,6 +69,15 @@ const targetIsLocalhost = computed(() => {
   try { return ['localhost', '127.0.0.1', '[::1]'].includes(new URL(verifyBase.value).hostname); }
   catch { return false; }
 });
+// On the public website, labels should point at this site. A target saved in this
+// browser that names another host (an old LAN address, say) would print labels a
+// phone can't open, so say so.
+const onPublicSite = !['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname);
+const targetElsewhere = computed(() => {
+  if (!onPublicSite) return false;
+  try { return new URL(verifyBase.value).host !== location.host; }
+  catch { return true; }
+});
 
 // ---------------- Result ----------------
 const result     = ref(null);
@@ -294,6 +303,11 @@ onMounted(loadRecent);
                 <i class="fa-solid fa-triangle-exclamation me-1"></i>
                 QR codes point to <strong>this PC only</strong>, which a phone can't reach. Use your PC's LAN address
                 (e.g. <span class="mono">http://192.168.1.20:8080/RigCraft/verify</span>) so labels scan correctly.
+              </div>
+              <div v-else-if="targetElsewhere" class="lan-warning p-2 mb-2">
+                <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                QR codes point to <strong>another address</strong>, not this site, so phones may not open them.
+                <button type="button" class="btn btn-link btn-sm p-0 align-baseline" @click="verifyBase = defaultBase">Use {{ defaultBase }}</button>
               </div>
               <label class="form-label small" for="verify-base">Verify page URL encoded in QR codes</label>
               <div class="input-group input-group-sm">

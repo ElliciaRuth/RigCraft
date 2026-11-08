@@ -87,7 +87,7 @@ Demo shopper for the store (not the console): `juan@example.com` / `customer123`
 | `/staff/users` | Admin | Add staff, change roles, deactivate, reset passwords |
 | `/staff/account` | Staff | Profile and change your own password |
 
-**Old addresses still work.** QR labels printed before the move point at `…/frontend/verify.php?hash=…`, and they open the new verify page. The same goes for every other old `*.php` page.
+**Old addresses still work.** QR labels printed before the move point at `…/frontend/verify.php?hash=…`, and they open the new verify page. The same goes for every other old `*.php` page. Where the app is served from a site root (like the live server), addresses with the old `/RigCraft/` prefix, such as labels printed from the XAMPP copy (`…/RigCraft/verify?hash=…`), open the same page without the prefix.
 
 ### Unit lifecycle
 
