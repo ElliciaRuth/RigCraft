@@ -64,6 +64,7 @@ Re-importing the SQL file resets everything to the sample data. Sample dates are
 | `aisha` | `tech1234` | Technician |
 
 Staff sign in at **/RigCraft/staff/login** (also linked as "Staff login" in the store footer). Change passwords under **My account**; admins can reset anyone's password under **Users**.
+These passwords come from the sample data, so any copy that others can reach (like the live server) must change them; the live site's accounts use different passwords.
 
 Demo shopper for the store (not the console): `juan@example.com` / `customer123`. Anyone can create a shopper account at **/RigCraft/register**.
 
@@ -165,6 +166,7 @@ RigCraft/
 
 - Passwords use bcrypt. Sessions are CodeIgniter sessions in their own cookie (`RIGCRAFTSESS`), HttpOnly and SameSite=Lax, with a new session ID issued at every sign-in and sign-out.
 - After 5 failed sign-ins, that sign-in form is locked for 60 seconds for the session.
+- Each IP address also gets at most 30 sign-in attempts per form (staff, shopper), refilled at 3 a minute (CodeIgniter's Throttler, `loginIpAttempts` / `loginIpSeconds` in `Config/RigCraft.php`). Every attempt counts, so clearing cookies or signing in to another account doesn't reset it.
 - Every POST/PUT/DELETE needs the session's CSRF token (`ApiCsrf` filter).
 - Roles are checked on the server for every API call (`ApiAuth` filter); the Vue router guards only decide which page to show.
 - The public `verify`/`shop`/`cart` responses never include buyout cost or sale price.
@@ -178,4 +180,4 @@ QR labels made there point to an address the phone can reach. You can also set t
 ## Limitations
 
 - The verify-page chart rebuilds a 30-minute curve from the logged peak temperature. Store per-minute sensor samples to plot real data.
-- Sign-in lockout is per session, not per IP. Put the console behind a VPN or a proper reverse proxy before exposing it publicly.
+- The per-IP sign-in limit is shared by everyone behind one network address (a school or office Wi-Fi). Behind a reverse proxy that hides visitors' addresses, list it in `Config\App::$proxyIPs`, or everyone shares one limit.

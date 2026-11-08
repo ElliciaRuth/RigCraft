@@ -35,4 +35,13 @@ class RigCraft extends BaseConfig
     public int $loginMaxAttempts  = 5;
     public int $loginLockSeconds  = 60;
     public int $minPasswordLength = 8;
+
+    /**
+     * Sign-in throttling per IP address, so clearing cookies doesn't allow
+     * unlimited guessing. Each sign-in form (staff, shopper) gives an address
+     * $loginIpAttempts tries, refilled evenly over $loginIpSeconds
+     * (30 per 10 minutes = 3 a minute once used up).
+     */
+    public int $loginIpAttempts = 30;
+    public int $loginIpSeconds  = 600;
 }
