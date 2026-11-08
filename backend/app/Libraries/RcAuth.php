@@ -130,7 +130,7 @@ class RcAuth
     /** Returns the user on success, or an error message. Locks the session after repeated failures. */
     public function attemptStaffLogin(string $username, string $password): array|string
     {
-        if ($msg = $this->lockedMessage('login')) {
+        if ($msg = $this->lockedMessage('login') ?? $this->ipLimitMessage('login')) {
             return $msg;
         }
 
@@ -193,7 +193,7 @@ class RcAuth
 
     public function attemptCustomerLogin(string $email, string $password): array|string
     {
-        if ($msg = $this->lockedMessage('cust')) {
+        if ($msg = $this->lockedMessage('cust') ?? $this->ipLimitMessage('cust')) {
             return $msg;
         }
 
@@ -257,6 +257,24 @@ class RcAuth
         $until = (int) $this->session->get("{$kind}_locked_until");
 
         return $until > time() ? 'Too many failed attempts. Try again in ' . ($until - time()) . ' seconds.' : null;
+    }
+
+    /**
+     * Uses one of this IP address's sign-in tries (CodeIgniter's Throttler,
+     * see Config\RigCraft::$loginIpAttempts). Every attempt counts, so a script
+     * can't reset it by signing in to its own shopper account in between.
+     */
+    private function ipLimitMessage(string $kind): ?string
+    {
+        // md5: IPv6 addresses contain ':', which cache keys can't
+        $key       = "rc-{$kind}-" . md5(service('request')->getIPAddress());
+        $throttler = service('throttler');
+
+        if ($throttler->check($key, $this->rc->loginIpAttempts, $this->rc->loginIpSeconds)) {
+            return null;
+        }
+
+        return 'Too many sign-in attempts from your network. Try again in ' . $throttler->getTokenTime() . ' seconds.';
     }
 
     private function recordFailure(string $kind): void
