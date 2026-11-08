@@ -5,6 +5,7 @@
  * Motion is skipped for visitors who prefer reduced motion.
  */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
+import { useRoute } from 'vue-router';
 import { api } from '@/lib/api.js';
 import { session } from '@/lib/session.js';
 import { useShopCart } from '@/lib/useShopCart.js';
@@ -14,6 +15,7 @@ import CartToast from '@/components/CartToast.vue';
 import RigShowcase from '@/components/RigShowcase.vue';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const route    = useRoute();
 const ceiling  = computed(() => session.rules.temp_ceiling_celsius);
 const warranty = computed(() => session.rules.warranty_months);
 const guest    = computed(() => !session.user && !session.customer);
@@ -87,6 +89,12 @@ onMounted(async () => {
   }
   await nextTick();
   observeReveals();
+
+  // The router scrolls to a #section before the deals load, and the deals then
+  // push everything below them down. Scroll to the section again once they're in
+  // (e.g. "Rigs" in the nav clicked from the shop).
+  const target = route.hash ? document.getElementById(route.hash.slice(1)) : null;
+  target?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
 });
 watch(visible, () => nextTick(observeReveals));
 
