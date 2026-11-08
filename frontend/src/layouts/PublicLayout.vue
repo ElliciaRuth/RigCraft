@@ -15,6 +15,7 @@ const router = useRouter();
 const links = [
   { key: 'home',   to: { name: 'home' },                 label: 'Home',          icon: 'fa-house' },
   { key: 'deals',  to: { name: 'home', hash: '#deals' }, label: 'Deals',         icon: 'fa-tags' },
+  { key: 'rigs',   to: { name: 'home', hash: '#rigs' },  label: 'Rigs',          icon: 'fa-computer' },
   { key: 'why',    to: { name: 'home', hash: '#why' },   label: 'Why RigCraft',  icon: 'fa-award' },
   { key: 'how',    to: { name: 'home', hash: '#how' },   label: 'How we test',   icon: 'fa-list-check' },
   { key: 'shop',   to: { name: 'shop' },                 label: 'Shop',          icon: 'fa-store' },
@@ -41,7 +42,7 @@ function update() {
     // A section counts as current once its top passes a line ~30% down the visible area.
     const line = 64 + window.innerHeight * 0.3;
     let current = 'home';
-    for (const id of ['deals', 'why', 'how']) {
+    for (const id of ['deals', 'rigs', 'why', 'how']) {
       const el = document.getElementById(id);
       if (el && el.getBoundingClientRect().top <= line) current = id;
     }

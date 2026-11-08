@@ -2,7 +2,7 @@
 
 A full system for refurbishing, stress-testing and selling second-hand PC components. All prices are in **Philippine pesos (₱)**.
 
-- **Public store:** home page with today's deals, a shop with filters, a QR-linked test report for every unit (with side-by-side compare), and a cart, checkout and order history for shoppers with an account.
+- **Public store:** home page with today's deals and complete rigs (builds), a shop with filters, a QR-linked test report for every unit (with side-by-side compare), and a cart, checkout and order history for shoppers with an account.
 - **Staff console:** dashboard, intake with QR labels, inventory, unit management (edit, re-test, sell/undo sale, delete), the online order queue, user management and an account page.
 
 **Stack**
@@ -72,7 +72,7 @@ Demo shopper for the store (not the console): `juan@example.com` / `customer123`
 
 | Address (under `/RigCraft`) | Who | What it does |
 |---|---|---|
-| `/` | Public | Storefront: hero, brand ticker, live stats, today's deals, "marketplace vs RigCraft", how we test. The nav highlights the section in view. |
+| `/` | Public | Storefront: hero, brand ticker, live stats, today's deals, rigs (complete builds, tap for full size), "marketplace vs RigCraft", how we test. The nav highlights the section in view. |
 | `/shop` | Public | Every unit for sale with filters (search, category, brand, price, peak temperature, below-new-price) and sorting; filters stay in the URL |
 | `/verify` | Public | Pick a unit (search by name or hash), or `?hash=…` for its test report: status, metrics, stress-test chart, checklist, warranty, and **compare** with another unit of the same category (`&compare=…`) |
 | `/cart`, `/checkout` | Shopper | Cart (kept in the browser, per shopper account) and checkout: pickup or delivery, cash or GCash on handover. Placing the order marks its units **Sold** |
@@ -158,6 +158,7 @@ RigCraft/
    │  ├─ lib/             api (client), session, cart, format, validation, photos, useShopCart
    │  └─ assets/rigcraft.css
    ├─ public/img/products/  Product photos (transparent .webp, <model-name-slug>.webp, listed in lib/photos.js)
+   ├─ public/img/rigs/      Build photos for the home page (<slug>.webp + <slug>-sm.webp, listed in lib/rigs.js)
    ├─ photo-originals/      The same photos with their original white backgrounds (not served)
    └─ dist/                 Production build served by Apache (npm run build)
 ```

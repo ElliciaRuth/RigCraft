@@ -1,7 +1,7 @@
 <script setup>
 /**
  * Storefront home: hero with an animated chip, brand ticker, count-up stats,
- * today's deals, "marketplace vs RigCraft", how we test, call to action.
+ * today's deals, complete rigs, "marketplace vs RigCraft", how we test, call to action.
  * Motion is skipped for visitors who prefer reduced motion.
  */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
@@ -11,6 +11,7 @@ import { useShopCart } from '@/lib/useShopCart.js';
 import DealCard from '@/components/DealCard.vue';
 import CountUp from '@/components/CountUp.vue';
 import CartToast from '@/components/CartToast.vue';
+import RigShowcase from '@/components/RigShowcase.vue';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ceiling  = computed(() => session.rules.temp_ceiling_celsius);
@@ -270,6 +271,13 @@ onBeforeUnmount(() => {
       </div>
 
       <CartToast :message="cartNotice" />
+    </section>
+
+    <!-- ===================== RIGS ===================== -->
+    <section class="section pt-2" id="rigs">
+      <div class="container-wide">
+        <RigShowcase />
+      </div>
     </section>
 
     <!-- ===================== WHY RIGCRAFT ===================== -->
