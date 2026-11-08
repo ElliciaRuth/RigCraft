@@ -28,7 +28,16 @@ const traces = [
   ['M170 280 H100 V330 H48', 48, 330],   ['M170 240 H38', 38, 240],             ['M170 200 H110 V140 H58', 58, 140],
 ];
 const pins   = Array.from({ length: 6 }, (_, k) => 186 + k * 22);
-const brands = ['NVIDIA', 'AMD', 'Intel', 'ASUS', 'MSI', 'Gigabyte', 'Sapphire', 'Zotac', 'EVGA', 'Corsair', 'Kingston', 'Samsung'];
+// Brand ticker: the big names first, then every other brand in stock. Brands in
+// stock link to the shop filtered by that brand.
+const BIG_BRANDS = ['NVIDIA', 'AMD', 'Intel', 'ASUS', 'MSI', 'Gigabyte', 'Sapphire', 'Zotac', 'EVGA', 'Corsair', 'Kingston', 'Samsung'];
+const stocked = computed(() => new Set(items.value.map(i => i.brand)));
+const brands = computed(() => {
+  const extra = [...stocked.value].filter(b => !BIG_BRANDS.includes(b)).sort((a, b) => a.localeCompare(b));
+  return [...BIG_BRANDS, ...extra];
+});
+// Same speed however many brands there are (about 3.2 s per brand).
+const marqueeDur = computed(() => `${(brands.value.length * 3.2).toFixed(1)}s`);
 
 // ---------------- Deals ----------------
 const state = ref('loading');
@@ -203,10 +212,14 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- ===================== BRAND MARQUEE ===================== -->
-    <section class="marquee" aria-label="Brands we stock">
+    <section class="marquee" aria-label="Brands we stock" :style="{ '--marquee-dur': marqueeDur }">
       <div class="marquee-track">
         <div v-for="copy in 2" :key="copy" class="marquee-group" :aria-hidden="copy === 2 ? 'true' : null">
-          <span v-for="b in brands" :key="b" class="marquee-item">{{ b }}</span>
+          <template v-for="b in brands" :key="b">
+            <RouterLink v-if="stocked.has(b)" class="marquee-item" :to="{ name: 'shop', query: { brand: b } }"
+                        :tabindex="copy === 2 ? -1 : null" :title="'Shop ' + b">{{ b }}</RouterLink>
+            <span v-else class="marquee-item">{{ b }}</span>
+          </template>
         </div>
       </div>
     </section>
