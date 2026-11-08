@@ -62,6 +62,11 @@ export const RIGS = [
     blurb: 'An all-white dual-chamber build in pink light: a 360 mm liquid cooler with a pump screen and a white iGame GeForce RTX.',
     parts: [['GPU', 'Colorful iGame GeForce RTX (white)'], ['Liquid', 'White 360 mm AIO with LCD pump screen'], ['RAM', 'TEAMGROUP T-Force Delta RGB'], ['Case', 'White dual-chamber glass case']],
   },
+  {
+    slug: 'red-vulcan', name: 'Red Vulcan', glow: '#DC2626', cooling: 'Air-cooled', focus: '40% 50%',
+    blurb: 'A Colorful iGame GeForce RTX Vulcan with its LCD panel lit, under an AORUS cooler and XPG memory, all in red.',
+    parts: [['GPU', 'Colorful iGame GeForce RTX Vulcan'], ['Cooler', 'Gigabyte AORUS air cooler'], ['RAM', 'ADATA XPG RGB memory'], ['Cables', 'Red sleeved PCIe cables']],
+  },
 ];
 
 export const RIG_PART_ICONS = {
