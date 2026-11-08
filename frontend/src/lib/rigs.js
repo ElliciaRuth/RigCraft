@@ -57,6 +57,11 @@ export const RIGS = [
     blurb: 'A white case in violet light: ASUS ROG Strix graphics card, MSI Gaming Plus board and a dual-tower cooler.',
     parts: [['GPU', 'ASUS ROG Strix graphics card'], ['Motherboard', 'MSI Gaming Plus'], ['Cooler', 'White dual-tower air cooler'], ['Case', 'White glass case']],
   },
+  {
+    slug: 'cotton-candy', name: 'Cotton Candy', glow: '#D946EF', cooling: 'Liquid-cooled', focus: '35% 50%',
+    blurb: 'An all-white dual-chamber build in pink light: a 360 mm liquid cooler with a pump screen and a white iGame GeForce RTX.',
+    parts: [['GPU', 'Colorful iGame GeForce RTX (white)'], ['Liquid', 'White 360 mm AIO with LCD pump screen'], ['RAM', 'TEAMGROUP T-Force Delta RGB'], ['Case', 'White dual-chamber glass case']],
+  },
 ];
 
 export const RIG_PART_ICONS = {
