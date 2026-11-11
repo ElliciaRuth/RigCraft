@@ -4,10 +4,13 @@
  * the arrow buttons, and a full-size viewer (arrow keys, swipe or the buttons
  * step through the builds; Esc or a click outside closes it) with zoom: click or
  * double-tap, wheel or pinch, drag to pan, + − 0 keys and the zoom bar.
+ * The viewer also shows each build's OCCT results (RigBench.vue), opened from
+ * the card's "OCCT results" button or the Photo / OCCT switch.
  * Builds and photos: lib/rigs.js.
  */
 import { ref, reactive, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { RIGS, RIG_PART_ICONS, rigPhoto, rigPhotoSmall } from '@/lib/rigs.js';
+import RigBench from '@/components/RigBench.vue';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const partIcon = (kind) => RIG_PART_ICONS[kind] || 'fa-puzzle-piece';
@@ -43,12 +46,17 @@ onMounted(() => {
 // ---------------- Full-size viewer ----------------
 const index = ref(-1);
 const current = computed(() => RIGS[index.value] || null);
+const mode = ref('photo');   // 'photo' | 'bench'; kept while stepping through builds
 const closeBtn = ref(null);
 let opener = null;
 
 const PAN_KEYS = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
 function onKey(e) {
   if (e.key === 'Escape') close();
+  else if (mode.value === 'bench') {   // no zoom on the results: arrows change build
+    if (e.key === 'ArrowLeft') go(-1);
+    else if (e.key === 'ArrowRight') go(1);
+  }
   else if (e.key === '+' || e.key === '=') zoomStep(1);
   else if (e.key === '-' || e.key === '_') zoomStep(-1);
   else if (e.key === '0') resetZoom();
@@ -60,8 +68,9 @@ function onKey(e) {
   else if (e.key === 'ArrowRight') go(1);
 }
 
-async function openAt(i, e) {
+async function openAt(i, e, view = 'photo') {
   opener = e?.currentTarget || null;
+  mode.value = view;
   index.value = i;
   document.body.style.overflow = 'hidden';
   document.addEventListener('keydown', onKey);
@@ -94,7 +103,7 @@ const zoomHint = window.matchMedia('(hover: hover) and (pointer: fine)').matches
   : 'Double-tap or pinch the photo to zoom in, drag to look around.';
 
 function resetZoom() { zoom.s = 1; zoom.x = 0; zoom.y = 0; }
-watch(index, resetZoom);
+watch([index, mode], resetZoom);
 
 /** Keep the photo covering its frame (no empty edges while zoomed). */
 function clampPan() {
@@ -215,6 +224,9 @@ onBeforeUnmount(() => {
           <ul class="rig-parts">
             <li v-for="[kind, text] in r.parts" :key="text"><i class="fa-solid" :class="partIcon(kind)"></i>{{ text }}</li>
           </ul>
+          <button type="button" class="rig-bench-btn" @click="openAt(i, $event, 'bench')">
+            <i class="fa-solid fa-gauge-high"></i>OCCT results
+          </button>
         </div>
       </article>
     </li>
@@ -233,7 +245,8 @@ onBeforeUnmount(() => {
       <button type="button" class="rig-nav prev" aria-label="Previous build" @click="go(-1)"><i class="fa-solid fa-chevron-left"></i></button>
 
       <figure class="rig-figure" :style="{ '--glow': current.glow }">
-        <div class="rig-stage-wrap">
+        <RigBench v-if="mode === 'bench'" :rig="current" />
+        <div v-else class="rig-stage-wrap">
           <div ref="stage" class="rig-stage" :class="{ zoomed, dragging }"
                @wheel.prevent="onWheel" @pointerdown="onPointerDown" @pointermove="onPointerMove"
                @pointerup="onPointerUp" @pointercancel="onPointerUp">
@@ -249,13 +262,17 @@ onBeforeUnmount(() => {
         </div>
         <figcaption>
           <div class="rig-count">{{ index + 1 }} / {{ RIGS.length }}</div>
+          <div class="rig-mode" role="group" aria-label="Show">
+            <button type="button" :aria-pressed="mode === 'photo'" @click="mode = 'photo'"><i class="fa-solid fa-image"></i>Photo</button>
+            <button type="button" :aria-pressed="mode === 'bench'" @click="mode = 'bench'"><i class="fa-solid fa-gauge-high"></i>OCCT results</button>
+          </div>
           <h3 class="rig-name">{{ current.name }}</h3>
           <p>{{ current.blurb }}</p>
           <div class="rig-cool static"><i class="fa-solid" :class="coolIcon(current)"></i>{{ current.cooling }}</div>
           <ul class="rig-parts">
             <li v-for="[kind, text] in current.parts" :key="text"><i class="fa-solid" :class="partIcon(kind)"></i>{{ text }}</li>
           </ul>
-          <p class="rig-zoom-hint"><i class="fa-solid fa-magnifying-glass me-1"></i>{{ zoomHint }}</p>
+          <p v-if="mode === 'photo'" class="rig-zoom-hint"><i class="fa-solid fa-magnifying-glass me-1"></i>{{ zoomHint }}</p>
         </figcaption>
       </figure>
 
