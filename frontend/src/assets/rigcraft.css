@@ -536,6 +536,71 @@ a.marquee-item { text-decoration: none; }
   .rig-nav.next { left: 4rem; right: auto; }
 }
 
+/* ---------- Rig OCCT results (components/RigBench.vue, in the rig viewer) ---------- */
+.rig-bench-btn { margin-top: .9rem; align-self: flex-start; display: inline-flex; align-items: center; gap: .45rem; padding: .4rem .8rem;
+  border-radius: 999px; border: 1px solid var(--rc-border); background: transparent; color: var(--rc-text); font-size: .76rem; font-weight: 700; }
+.rig-bench-btn i { color: var(--glow); }
+.rig-bench-btn:hover, .rig-bench-btn:focus-visible { border-color: var(--glow); }
+.rig-mode { display: inline-flex; gap: .2rem; padding: .2rem; margin-bottom: 1rem; border-radius: 999px; background: var(--rc-input); border: 1px solid var(--rc-border); }
+.rig-mode button { border: 0; background: transparent; color: var(--rc-muted); border-radius: 999px; padding: .35rem .75rem; font-size: .78rem; font-weight: 700;
+  display: inline-flex; align-items: center; gap: .4rem; }
+.rig-mode button[aria-pressed="true"] { background: var(--rc-raised); color: var(--rc-text); }
+.rig-mode button[aria-pressed="true"] i { color: var(--glow); }
+.rig-mode button:focus-visible { outline: 2px solid var(--rc-cyan); }
+
+.rig-bench { flex: none; width: min(60vw, 720px); max-height: calc(100vh - 3rem); overflow-y: auto; padding: 1.4rem 1.5rem 1.2rem; background: #050a16; }
+.rb-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .9rem; }
+.rb-head h4 { margin: 0; font-size: 1.02rem; font-weight: 800; }
+.rb-head h4 i { color: var(--glow); }
+.rb-for { display: none; }
+.rb-sample { font-size: .66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--rc-amber);
+  border: 1px solid color-mix(in srgb, var(--rc-amber) 45%, transparent); border-radius: 999px; padding: .2rem .6rem; white-space: nowrap; }
+.rb-tabs { display: flex; gap: .4rem; flex-wrap: wrap; }
+.rb-tabs button { border: 1px solid var(--rc-border); background: var(--rc-surface); color: var(--rc-muted); border-radius: 10px; padding: .45rem .85rem;
+  font-size: .82rem; font-weight: 700; display: inline-flex; align-items: center; gap: .45rem; }
+.rb-tabs button.on { color: var(--rc-text); border-color: var(--glow); background: color-mix(in srgb, var(--glow) 14%, var(--rc-surface)); }
+.rb-tabs button.on i { color: var(--glow); }
+.rb-tabs button:focus-visible, .rb-metrics button:focus-visible, .rb-play button:focus-visible { outline: 2px solid var(--rc-cyan); outline-offset: 1px; }
+.rb-about { font-size: .8rem !important; color: var(--rc-muted); margin: .6rem 0 .9rem; }
+.rb-tiles { list-style: none; margin: 0 0 1.1rem; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
+.rb-tiles li { background: var(--rc-surface); border: 1px solid var(--rc-border); border-radius: 12px; padding: .65rem .75rem; display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.rb-k { font-size: .68rem; color: var(--rc-muted); line-height: 1.25; }
+.rb-v { font-family: var(--rc-mono); font-size: 1.15rem; font-weight: 700; color: var(--rc-text); }
+.rb-v small { font-size: .7rem; color: var(--rc-muted); margin-left: .25rem; font-weight: 600; }
+.rb-s { font-size: .7rem; color: var(--rc-muted); }
+.rb-pass .rb-v { font-family: inherit; font-size: 1rem; display: flex; align-items: center; gap: .4rem; }
+.rb-pass .rb-v i { color: var(--rc-emerald); }
+.rb-chart-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .4rem; }
+.rb-metrics { display: flex; flex-wrap: wrap; gap: .3rem; }
+.rb-metrics button { border: 0; background: transparent; color: var(--rc-muted); border-radius: 999px; padding: .3rem .65rem; font-size: .76rem; font-weight: 600; }
+.rb-metrics button.on { background: var(--rc-raised); color: var(--rc-text); }
+.rb-play { display: flex; align-items: center; gap: .5rem; }
+.rb-play output { font-family: var(--rc-mono); font-size: .74rem; color: var(--rc-muted); min-width: 6.6rem; text-align: right; }
+.rb-play button { border: 1px solid var(--rc-border); background: var(--rc-surface); color: var(--rc-text); border-radius: 999px; padding: .28rem .7rem; font-size: .74rem; font-weight: 700; }
+.rb-chart { position: relative; touch-action: pan-y; }
+.rb-chart svg { display: block; overflow: visible; cursor: crosshair; }
+.rb-grid line { stroke: #1e293b; stroke-width: 1; }
+.rb-grid text { fill: var(--rc-muted); font-size: 11px; font-family: var(--rc-mono); }
+.rb-grid .rb-unit { font-size: 10px; }
+.rb-line { fill: none; stroke: var(--glow); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.rb-cross { stroke: var(--rc-muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.rb-dot { fill: var(--glow); stroke: #050a16; stroke-width: 2; }
+.rb-tip { position: absolute; transform: translate(-50%, calc(-100% - 12px)); pointer-events: none; white-space: nowrap; padding: .3rem .55rem;
+  border-radius: 8px; background: var(--rc-raised); border: 1px solid var(--rc-border); font-size: .74rem; display: flex; gap: .5rem; }
+.rb-tip span { color: var(--rc-muted); font-family: var(--rc-mono); }
+.rb-tip strong { color: var(--rc-text); font-family: var(--rc-mono); }
+.rb-table { margin-top: .8rem; font-size: .78rem; }
+.rb-table summary { cursor: pointer; color: var(--rc-muted); }
+.rb-table table { width: 100%; margin-top: .5rem; border-collapse: collapse; font-family: var(--rc-mono); }
+.rb-table th, .rb-table td { padding: .3rem .5rem; border-bottom: 1px solid var(--rc-border); text-align: right; white-space: nowrap; }
+.rb-table th:first-child { text-align: left; }
+.rb-table thead th { color: var(--rc-muted); font-weight: 600; font-family: inherit; }
+@media (max-width: 767.98px) {
+  .rig-bench { width: 100%; max-height: none; overflow: visible; padding: 1.1rem 1rem 1rem; }
+  .rb-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rb-for { display: block; margin-top: .2rem; font-size: .8rem; font-weight: 600; color: var(--rc-muted); }
+}
+
 /* ---------- Comparison ---------- */
 .compare { height: 100%; border-radius: 18px; padding: 1.4rem 1.5rem; }
 .compare.bad  { background: rgba(30,41,59,.45); border: 1px solid var(--rc-border); }
